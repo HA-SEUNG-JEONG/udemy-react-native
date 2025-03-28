@@ -7,6 +7,7 @@ export default function App() {
     // 또한 CSS에서 border라는 키가 존재하지 않음
 
     const [enteredGoalText, setEnteredGoalText] = useState("");
+    const [goals, setGoals] = useState([]);
 
     const goalInputHandler = (enteredText) => {
         // 이벤트 처리하기
@@ -14,7 +15,9 @@ export default function App() {
     };
 
     const addGoalHandler = () => {
-        console.log(enteredGoalText);
+        setGoals((currentGoals) => [...currentGoals, enteredGoalText]);
+        // 입력 필드 초기화
+        setEnteredGoalText("");
     };
 
     return (
@@ -24,11 +27,14 @@ export default function App() {
                     style={styles.textInput}
                     placeholder="이름을 입력해주세요"
                     onChangeText={goalInputHandler}
+                    value={enteredGoalText}
                 />
                 <Button title="저장" onPress={addGoalHandler} />
             </View>
             <View style={styles.goalsContainer}>
-                <Text>목록</Text>
+                {goals.map((goal) => (
+                    <Text key={goal}>{goal}</Text>
+                ))}
             </View>
         </View>
     );
