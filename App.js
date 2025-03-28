@@ -1,6 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+    Button,
+    StyleSheet,
+    Text,
+    TextInput,
+    View,
+    ScrollView
+} from "react-native";
 
 export default function App() {
     // RN에서는 h2나 div 요소를 못 쓴다. -> 왜? DOM 요소를 가지고 있지 않아서..
@@ -32,9 +39,13 @@ export default function App() {
                 <Button title="저장" onPress={addGoalHandler} />
             </View>
             <View style={styles.goalsContainer}>
-                {goals.map((goal) => (
-                    <Text key={goal}>{goal}</Text>
-                ))}
+                <ScrollView alwaysBounceVertical={false}>
+                    {goals.map((goal) => (
+                        <Text style={styles.goalItem} key={goal}>
+                            {goal}
+                        </Text>
+                    ))}
+                </ScrollView>
             </View>
         </View>
     );
@@ -64,5 +75,12 @@ const styles = StyleSheet.create({
     },
     goalsContainer: {
         flex: 5
+    },
+    goalItem: {
+        margin: 8,
+        padding: 8,
+        borderRadius: 6,
+        backgroundColor: "#5e0acc",
+        color: "white"
     }
 });
