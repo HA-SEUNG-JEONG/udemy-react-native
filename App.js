@@ -1,51 +1,34 @@
-import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import {
-    Button,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
-    ScrollView
-} from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
+import GoalItem from "./components/GoalItem";
+import GoalInput from "./components/GoalInput";
 
 export default function App() {
     // RN에서는 h2나 div 요소를 못 쓴다. -> 왜? DOM 요소를 가지고 있지 않아서..
     // 또한 CSS에서 border라는 키가 존재하지 않음
-
-    const [enteredGoalText, setEnteredGoalText] = useState("");
     const [goals, setGoals] = useState([]);
 
-    const goalInputHandler = (enteredText) => {
-        // 이벤트 처리하기
-        setEnteredGoalText(enteredText);
-    };
-
-    const addGoalHandler = () => {
-        setGoals((currentGoals) => [...currentGoals, enteredGoalText]);
-        // 입력 필드 초기화
-        setEnteredGoalText("");
+    const addGoalHandler = (enteredGoalText) => {
+        if (enteredGoalText.length === 0) {
+            return;
+        }
+        setGoals((currentGoals) => [
+            ...currentGoals,
+            { text: enteredGoalText, key: Math.random().toString() }
+        ]);
     };
 
     return (
         <View style={styles.appContainer}>
-            <View style={styles.inputContainer}>
-                <TextInput
-                    style={styles.textInput}
-                    placeholder="이름을 입력해주세요"
-                    onChangeText={goalInputHandler}
-                    value={enteredGoalText}
-                />
-                <Button title="저장" onPress={addGoalHandler} />
-            </View>
+            <GoalInput onAddGoal={addGoalHandler} />
             <View style={styles.goalsContainer}>
-                <ScrollView alwaysBounceVertical={false}>
-                    {goals.map((goal) => (
-                        <Text style={styles.goalItem} key={goal}>
-                            {goal}
-                        </Text>
-                    ))}
-                </ScrollView>
+                <FlatList
+                    data={goals}
+                    alwaysBounceVertical={false}
+                    renderItem={(itemData) => {
+                        return <GoalItem text={itemData.item.text} />;
+                    }}
+                />
             </View>
         </View>
     );
