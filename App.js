@@ -14,8 +14,14 @@ export default function App() {
         }
         setGoals((currentGoals) => [
             ...currentGoals,
-            { text: enteredGoalText, key: Math.random().toString() }
+            { text: enteredGoalText, id: Math.random().toString() }
         ]);
+    };
+
+    const deleteGoalHandler = (id) => {
+        setGoals((currentGoals) => {
+            return currentGoals.filter((goal) => goal.id !== id);
+        });
     };
 
     return (
@@ -26,7 +32,13 @@ export default function App() {
                     data={goals}
                     alwaysBounceVertical={false}
                     renderItem={(itemData) => {
-                        return <GoalItem text={itemData.item.text} />;
+                        return (
+                            <GoalItem
+                                text={itemData.item.text}
+                                id={itemData.item.id}
+                                onDeleteItem={deleteGoalHandler}
+                            />
+                        );
                     }}
                 />
             </View>
