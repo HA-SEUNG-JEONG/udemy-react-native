@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { Button, StyleSheet, TextInput, View } from "react-native";
+import { Button, StyleSheet, TextInput, View, Modal } from "react-native";
 
 interface GoalInputProps {
     onAddGoal: (enteredGoalText: string) => void;
+    visible: boolean;
 }
 
 function GoalInput(props: GoalInputProps) {
     const [enteredGoalText, setEnteredGoalText] = useState("");
 
     const goalInputHandler = (enteredText: string) => {
-        // 이벤트 처리하기
         setEnteredGoalText(enteredText);
     };
 
@@ -19,15 +19,17 @@ function GoalInput(props: GoalInputProps) {
     };
 
     return (
-        <View style={styles.inputContainer}>
-            <TextInput
-                style={styles.textInput}
-                placeholder="이름을 입력해주세요"
-                onChangeText={goalInputHandler}
-                value={enteredGoalText}
-            />
-            <Button title="저장" onPress={addGoalHandler} />
-        </View>
+        <Modal visible={props.visible} animationType="slide">
+            <View style={styles.inputContainer}>
+                <TextInput
+                    style={styles.textInput}
+                    placeholder="이름을 입력해주세요"
+                    onChangeText={goalInputHandler}
+                    value={enteredGoalText}
+                />
+                <Button title="저장" onPress={addGoalHandler} />
+            </View>
+        </Modal>
     );
 }
 

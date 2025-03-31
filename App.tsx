@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList, Button } from "react-native";
 import GoalItem from "./components/GoalItem";
 import GoalInput from "./components/GoalInput";
 
@@ -9,6 +9,7 @@ interface Goal {
 }
 
 export default function App() {
+    const [modalIsVisible, setModalIsVisible] = useState(false);
     // RN에서는 h2나 div 요소를 못 쓴다. -> 왜? DOM 요소를 가지고 있지 않아서..
     // 또한 CSS에서 border라는 키가 존재하지 않음
     const [goals, setGoals] = useState<Goal[]>([]);
@@ -29,9 +30,23 @@ export default function App() {
         });
     };
 
+    const startAddGoalHandler = () => {
+        setModalIsVisible(true);
+    };
+
     return (
         <View style={styles.appContainer}>
-            <GoalInput onAddGoal={addGoalHandler} />
+            <Button
+                title="목표 추가"
+                color="#5e0acc"
+                onPress={startAddGoalHandler}
+            />
+            {modalIsVisible && (
+                <GoalInput
+                    onAddGoal={addGoalHandler}
+                    visible={modalIsVisible}
+                />
+            )}
             <View style={styles.goalsContainer}>
                 <FlatList
                     data={goals}
