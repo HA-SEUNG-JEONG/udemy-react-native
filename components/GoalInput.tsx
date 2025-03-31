@@ -3,6 +3,7 @@ import { Button, StyleSheet, TextInput, View, Modal } from "react-native";
 
 interface GoalInputProps {
     onAddGoal: (enteredGoalText: string) => void;
+    onCancel: () => void;
     visible: boolean;
 }
 
@@ -32,7 +33,7 @@ function GoalInput(props: GoalInputProps) {
                         <Button title="저장" onPress={addGoalHandler} />
                     </View>
                     <View style={styles.button}>
-                        <Button title="취소" />
+                        <Button title="취소" onPress={props.onCancel} />
                     </View>
                 </View>
             </View>

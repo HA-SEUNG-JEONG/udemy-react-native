@@ -24,6 +24,10 @@ export default function App() {
         ]);
     };
 
+    const endAddGoalHandler = () => {
+        setModalIsVisible(false);
+    };
+
     const deleteGoalHandler = (id: string) => {
         setGoals((currentGoals) => {
             return currentGoals.filter((goal) => goal.id !== id);
@@ -45,6 +49,7 @@ export default function App() {
                 <GoalInput
                     onAddGoal={addGoalHandler}
                     visible={modalIsVisible}
+                    onCancel={endAddGoalHandler}
                 />
             )}
             <View style={styles.goalsContainer}>
