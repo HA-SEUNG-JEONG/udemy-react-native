@@ -3,12 +3,17 @@ import { StyleSheet, View, FlatList } from "react-native";
 import GoalItem from "./components/GoalItem";
 import GoalInput from "./components/GoalInput";
 
+interface Goal {
+    id: string;
+    text: string;
+}
+
 export default function App() {
     // RN에서는 h2나 div 요소를 못 쓴다. -> 왜? DOM 요소를 가지고 있지 않아서..
     // 또한 CSS에서 border라는 키가 존재하지 않음
-    const [goals, setGoals] = useState([]);
+    const [goals, setGoals] = useState<Goal[]>([]);
 
-    const addGoalHandler = (enteredGoalText) => {
+    const addGoalHandler = (enteredGoalText: string) => {
         if (enteredGoalText.length === 0) {
             return;
         }
@@ -18,7 +23,7 @@ export default function App() {
         ]);
     };
 
-    const deleteGoalHandler = (id) => {
+    const deleteGoalHandler = (id: string) => {
         setGoals((currentGoals) => {
             return currentGoals.filter((goal) => goal.id !== id);
         });
@@ -40,6 +45,7 @@ export default function App() {
                             />
                         );
                     }}
+                    keyExtractor={(item) => item.id}
                 />
             </View>
         </View>

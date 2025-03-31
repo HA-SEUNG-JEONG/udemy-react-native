@@ -1,6 +1,12 @@
 import { Pressable, StyleSheet, Text, View, Alert } from "react-native";
 
-function GoalItem(props) {
+interface GoalItemProps {
+    id: string;
+    text: string;
+    onDeleteItem: (id: string) => void;
+}
+
+function GoalItem(props: GoalItemProps) {
     const deleteGoalHandler = () => {
         Alert.alert("목표 삭제", "이 목표를 삭제하시겠습니까?", [
             {

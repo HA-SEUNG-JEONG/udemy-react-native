@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { Button, StyleSheet, TextInput, View } from "react-native";
 
-function GoalInput(props) {
+interface GoalInputProps {
+    onAddGoal: (enteredGoalText: string) => void;
+}
+
+function GoalInput(props: GoalInputProps) {
     const [enteredGoalText, setEnteredGoalText] = useState("");
 
-    const goalInputHandler = (enteredText) => {
+    const goalInputHandler = (enteredText: string) => {
         // 이벤트 처리하기
         setEnteredGoalText(enteredText);
     };
