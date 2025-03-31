@@ -27,7 +27,14 @@ function GoalInput(props: GoalInputProps) {
                     onChangeText={goalInputHandler}
                     value={enteredGoalText}
                 />
-                <Button title="저장" onPress={addGoalHandler} />
+                <View style={styles.buttonContainer}>
+                    <View style={styles.button}>
+                        <Button title="저장" onPress={addGoalHandler} />
+                    </View>
+                    <View style={styles.button}>
+                        <Button title="취소" />
+                    </View>
+                </View>
             </View>
         </Modal>
     );
@@ -38,8 +45,7 @@ export default GoalInput;
 const styles = StyleSheet.create({
     inputContainer: {
         flex: 1,
-        flexDirection: "row", // default는 column..? 일반 CSS하고는 다른듯
-        justifyContent: "space-between",
+        justifyContent: "center",
         alignItems: "center",
         marginBottom: 24,
         borderBottomWidth: 1,
@@ -51,5 +57,17 @@ const styles = StyleSheet.create({
         width: "70%",
         marginRight: 8,
         padding: 8
+    },
+    buttonContainer: {
+        marginTop: 8,
+        flexDirection: "row",
+        justifyContent: "center",
+        width: "40%",
+        marginHorizontal: 8
+    },
+    button: {
+        width: 100,
+        marginHorizontal: 8,
+        marginVertical: 4
     }
 });
